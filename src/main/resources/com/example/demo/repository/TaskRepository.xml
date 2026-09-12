@@ -3,9 +3,27 @@
 
 <mapper namespace="com.example.demo.repository.TaskRepository">
 
-    <select id="findAll" resultType="com.example.demo.entity.TaskSummary"> 
-        SELECT task_id,task_name, limit_date, status_code 
-        FROM t_task
-        ORDER BY task_id 
+    <resultMap id="TaskSummaryResultMap" type="com.example.demo.entity.TaskSummary">
+        <id property="taskId" column="task_id"/>
+        <result property="taskName" column="task_name"/>
+        <result property="limitDate" column="limit_date"/>
+        <result property="memoCount" column="memo_count"/>
+
+        <association property="status" javaType="com.example.demo.entity.Status">
+            <id property="statusCode" column="status_code"/>
+            <result property="statusName" column="status_name"/>
+        </association>
+    </resultMap>
+
+    <select id="findAll" resultMap="TaskSummaryResultMap"> 
+        SELECT 
+            tt.task_id, task_name, limit_date, ms.status_code, ms.status_name,COUNT(tm.memo_id) as memo_count
+        FROM t_task tt 
+            INNER JOIN m_status ms 
+                ON tt.status_code = ms.status_code
+            LEFT OUTER JOIN t_memo tm 
+                ON tt.task_id = tm.task_id
+        GROUP BY tt.task_id, task_name, limit_date, ms.status_code, ms.status_name
+        ORDER BY tt.task_id 
     </select>
 </mapper>
