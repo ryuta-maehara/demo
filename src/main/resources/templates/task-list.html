@@ -8,6 +8,12 @@
 </head>
 
 <body>
+    <!-- ------------登録---------------- -->
+    <h2>タスク登録</h2>
+    <form th:action="@{/task-show-regist}" method="POST" th:object="${taskRegistForm}">
+        <input type="submit" value="登録" class="btn">
+    </form>
+
     <!-- ------------検索---------------- -->
     <h2>タスク検索</h2>
 
