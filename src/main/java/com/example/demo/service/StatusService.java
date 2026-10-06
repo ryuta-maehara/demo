@@ -1,0 +1,13 @@
+package com.example.demo.service;
+
+import java.util.List;
+import com.example.demo.entity.Status;
+
+public interface StatusService {
+
+    // 一覧全件取得
+    List<Status> findAll();
+
+    // 1件取得
+    Status findByCode(String statusCode);
+}

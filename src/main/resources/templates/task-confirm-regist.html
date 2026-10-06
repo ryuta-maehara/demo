@@ -20,7 +20,7 @@
 	</tr>
 	<tr>
 		<td class="guide">【ステータス】</td>
-		<td th:text="*{statusCode}"></td>
+		<td th:text="*{statusCode + ' : ' + statusName}"></td>
 	</tr>
 	<tr>
 		<td class="guide">【備考】</td>
@@ -34,6 +34,7 @@
     <input type="hidden" th:field="*{taskName}">
     <input type="hidden" th:field="*{limitDate}">
     <input type="hidden" th:field="*{statusCode}">
+    <input type="hidden" th:field="*{statusName}">
     <input type="hidden" th:field="*{remarks}">
     <input type="submit" value="登録実行" class="btn">
 </form>
@@ -43,6 +44,7 @@
     <input type="hidden" th:field="*{taskName}">
     <input type="hidden" th:field="*{limitDate}">
     <input type="hidden" th:field="*{statusCode}">
+    <input type="hidden" th:field="*{statusName}">
     <input type="hidden" th:field="*{remarks}">
    	<input type="submit" value="もどる" class="btn">
 </form>
