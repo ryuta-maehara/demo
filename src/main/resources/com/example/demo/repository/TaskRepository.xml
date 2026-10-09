@@ -3,6 +3,7 @@
 
 <mapper namespace="com.example.demo.repository.TaskRepository">
 
+    <!-- TaskSummaryのResultMap -->
     <resultMap id="TaskSummaryResultMap" type="com.example.demo.entity.TaskSummary">
         <id property="taskId" column="task_id"/>
         <result property="taskName" column="task_name"/>
@@ -15,6 +16,7 @@
         </association>
     </resultMap>
 
+    <!-- 一覧全検索 -->
     <select id="findAll" resultMap="TaskSummaryResultMap"> 
         SELECT 
             tt.task_id, task_name, limit_date, ms.status_code, ms.status_name,COUNT(tm.memo_id) as memo_count
@@ -26,4 +28,11 @@
         GROUP BY tt.task_id, task_name, limit_date, ms.status_code, ms.status_name
         ORDER BY tt.task_id 
     </select>
+
+    <!-- タスク登録 -->
+    <insert id="insert" parameterType="com.example.demo.entity.Task">
+        INSERT INTO t_task (task_name, limit_date, status_code ,remarks) 
+        VALUES (#{task.taskName}, #{task.limitDate}, #{task.statusCode}, #{task.remarks})
+    </insert>
+
 </mapper>

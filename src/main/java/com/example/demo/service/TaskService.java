@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.TaskSummary;
 import java.util.List;
+
+import com.example.demo.entity.Task;
+import com.example.demo.entity.TaskSummary;
 
 public interface TaskService {
 
@@ -11,4 +13,11 @@ public interface TaskService {
    * @return List<TaskSummary>
    */
   List<TaskSummary> findAll();
+
+  /**
+   * タスク登録
+   *
+   * @param task Task
+   */
+  void regist(Task task);
 }

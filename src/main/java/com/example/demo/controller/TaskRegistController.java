@@ -13,13 +13,16 @@ import org.springframework.ui.Model;
 
 import com.example.demo.form.TaskRegistForm;
 import com.example.demo.service.StatusService;
+import com.example.demo.service.TaskService;
 import com.example.demo.entity.Status;
+import com.example.demo.entity.Task;
 
 @Controller
 @RequiredArgsConstructor
 public class TaskRegistController {
 
     private final StatusService statusService;
+    private final TaskService taskService;
 
     /**
      * タスク登録画面表示リクエスト
@@ -85,20 +88,22 @@ public class TaskRegistController {
 
         // 入力チェックエラーがある場合は、登録画面に戻る
         if (bindingResult.hasErrors()) {
-            
+
             // ステータス一覧を取得してモデルに設定
             List<Status> statusList = statusService.findAll();
             model.addAttribute("statusList", statusList);
             return "task-regist";
         }
 
-        // 登録処理を実行する（仮)
-        System.out.println("タスク登録処理を実行します。");
-        System.out.println("タスク名: " + form.getTaskName());
-        System.out.println("期限日: " + form.getLimitDate());
-        System.out.println("ステータスコード: " + form.getStatusCode());
-        System.out.println("ステータス名: " + form.getStatusName());
-        System.out.println("備考: " + form.getRemarks());
+        Task task = new Task.Builder()
+                .taskName(form.getTaskName())
+                .statusCode(form.getStatusCode())
+                .limitDate(form.getLimitDate())
+                .remarks(form.getRemarks())
+                .build();
+
+        // タスク登録
+        taskService.regist(task);
 
         // フラッシュスコープにメッセージを設定
         redirectAttributes.addFlashAttribute("message", "タスクを登録しました。"); // 次のリクエストまで有効なメッセージを設定
