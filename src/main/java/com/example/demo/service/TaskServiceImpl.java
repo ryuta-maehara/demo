@@ -17,7 +17,7 @@ public class TaskServiceImpl implements TaskService {
   /** {@inheritDoc} */
   @Override
   @Transactional(readOnly = true) // 検索系でもパフォーマンスの向上、リソース節約がされるため推奨されている。
-  public List<TaskSummary> findAll() {
+  public List<TaskSummary> findListAll() {
     return taskRepository.findAll();
   }
 

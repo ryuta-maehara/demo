@@ -12,7 +12,7 @@ public interface TaskService {
    *
    * @return List<TaskSummary>
    */
-  List<TaskSummary> findAll();
+  List<TaskSummary> findListAll();
 
   /**
    * タスク登録
