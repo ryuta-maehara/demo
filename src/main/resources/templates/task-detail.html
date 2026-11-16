@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>タスク詳細</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <h2>タスク詳細</h2>
+    <table class="detail-table" th:object="${taskDetail}">
+        <tr>
+            <td>【タスクID】</td>
+            <td><input type="text" th:field="*{taskId}" /></td>
+        </tr>
+        <tr>
+            <td>【タスク名】</td>
+            <td><input type="text" th:field="*{taskName}" /></td>
+        </tr>
+        <tr>
+            <td>【期限】</td>
+            <td><input type="date" th:field="*{limitDate}" /></td>
+        </tr>
+        <tr>
+            <td>【ステータス】</td>
+            <td><input type="text" th:text="*{status.statusCode + ':' + status.statusName}" /></td>
+        </tr>
+        <tr>
+            <td>【備考】</td>
+            <td><input type="text" th:field="*{remarks}" /></td>
+        </tr>
+    </table>
+    <br>
+    <div th:if="${taskDetail.memoList.size() != 0}">
+        <table class="memo-list">
+            <tr>
+                <th>メモID</th>
+                <th>メモ</th>
+            </tr>
+            <tr th:each="memo : ${taskDetail.memoList}">
+                <td th:text="${memo.memoId}"></td>
+                <td th:text="${memo.memo}"></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <a th:href="@{/top}" class="tbtn">トップページに戻る</a>
+</body>
+
+</html>
