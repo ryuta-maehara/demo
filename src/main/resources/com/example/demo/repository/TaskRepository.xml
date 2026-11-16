@@ -24,9 +24,12 @@
         BY tt.task_id </select>
 
     <!-- タスク登録 -->
-    <insert id="insert" parameterType="com.example.demo.entity.Task"> INSERT INTO t_task (task_name,
-        limit_date, status_code ,remarks) VALUES (#{task.taskName}, #{task.limitDate},
-        #{task.statusCode}, #{task.remarks}) </insert>
+    <insert id="insert" parameterType="com.example.demo.entity.Task">
+        INSERT
+            INTO t_task (task_name,limit_date, status_code ,remarks)
+        VALUES 
+            (#{task.taskName}, #{task.limitDate},#{task.statusCode}, #{task.remarks})
+    </insert>
 
     <!-- 条件検索 -->
     <select id="selectListByConditions" resultMap="TaskSummaryResultMap"> SELECT tt.task_id,

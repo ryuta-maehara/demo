@@ -66,7 +66,6 @@ public class Task {
             return this;
         }
 
-
         /**
          * remarksを設定する
          *

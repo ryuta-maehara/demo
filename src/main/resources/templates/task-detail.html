@@ -24,13 +24,22 @@
         </tr>
         <tr>
             <td>【ステータス】</td>
-            <td th:text="*{status.statusCode + ':' + status.statusName}" /></td>
+            <td th:text="*{status.statusCode + ':' + status.statusName}" />
+            </td>
         </tr>
         <tr>
             <td>【備考】</td>
             <td th:text="*{remarks}"></td>
         </tr>
     </table>
+    <form th:action="@{/task-show-edit}" method="POST" th:object="${taskDetail}">
+        <input type="hidden" th:field="*{taskId}">
+        <input type="hidden" th:field="*{taskName}">
+        <input type="hidden" th:field="*{limitDate}">
+        <input type="hidden" name="statusCode" th:value="*{status.statusCode}">
+        <input type="hidden" th:field="*{remarks}">
+        <button type="submit" class="tbtn">編集</button>
+    </form>
     <br>
     <div th:if="${taskDetail.memoList.size() != 0}">
         <table class="memo-list">
