@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.entity.Task;
+import com.example.demo.entity.TaskDetail;
 import com.example.demo.entity.TaskSummary;
 
 public interface TaskService {
@@ -28,4 +29,12 @@ public interface TaskService {
    * @return List<TaskSummary>
    */
   List<TaskSummary> findListByConditions(Task task);
+
+  /**
+   * タスク詳細検索
+   *
+   * @param taskId Integer
+   * @return Task
+   */
+  TaskDetail findDetailByTaskId(Integer taskId);
 }

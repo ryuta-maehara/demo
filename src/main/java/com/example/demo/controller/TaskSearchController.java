@@ -63,29 +63,7 @@ public class TaskSearchController {
   @PostMapping("/task-search-detail")
   public String postMethodName(TaskSearchDetailForm form, Model model) {
 
-    // 暫定で値を設定する。
-    TaskDetail taskDetail = new TaskDetail();
-    taskDetail.setTaskId(form.getTaskId());
-    taskDetail.setTaskName("タスクテスト");
-    taskDetail.setLimitDate(Date.valueOf("2024-12-30"));
-    taskDetail.setRemarks("備考テスト");
-
-    // ステータスを設定する。
-    Status status = new Status();
-    status.setStatusCode("00");
-    status.setStatusName("未着手");
-    taskDetail.setStatus(status);
-
-    // メモを設定する。
-    List<Memo> memoList = new ArrayList<>();
-
-    Memo memo = new Memo();
-    memo.setMemoId(1);
-    memo.setTaskId(1);
-    memo.setMemo("メモテスト");
-    memoList.add(memo);
-    taskDetail.setMemoList(memoList);
-
+    TaskDetail taskDetail = taskService.findDetailByTaskId(form.getTaskId()); // 取得したタスク詳細をmodelにセットする。
     model.addAttribute("taskDetail", taskDetail); // 取得したタスク詳細をmodelにセットする。
 
     return "task-detail";

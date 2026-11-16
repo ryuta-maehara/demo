@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.entity.TaskSummary;
 import com.example.demo.entity.Task;
+import com.example.demo.entity.TaskDetail;
 
 @Mapper
 public interface TaskRepository {
@@ -18,4 +19,7 @@ public interface TaskRepository {
 
   // 条件検索
   List<TaskSummary> selectListByConditions(@Param("task") Task task);
+
+  // タスク詳細検索
+  TaskDetail selectDetailByTaskId(@Param("taskId") Integer taskId);
 }

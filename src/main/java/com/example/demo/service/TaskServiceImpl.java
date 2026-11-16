@@ -1,12 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Task;
-import com.example.demo.entity.TaskSummary;
-import com.example.demo.repository.TaskRepository;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.demo.entity.Task;
+import com.example.demo.entity.TaskDetail;
+import com.example.demo.entity.TaskSummary;
+import com.example.demo.repository.TaskRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +37,12 @@ public class TaskServiceImpl implements TaskService {
   @Transactional(readOnly = true) // 検索系でもパフォーマンスの向上、リソース節約がされるため推奨されている。
   public List<TaskSummary> findListByConditions(Task task) {
     return taskRepository.selectListByConditions(task);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  @Transactional(readOnly = true) // 検索系でもパフォーマンスの向上、リソース節約がされるため推奨されている。
+  public TaskDetail findDetailByTaskId(Integer taskId) {
+    return taskRepository.selectDetailByTaskId(taskId);
   }
 }
