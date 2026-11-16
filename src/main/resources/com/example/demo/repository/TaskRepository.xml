@@ -35,4 +35,36 @@
         VALUES (#{task.taskName}, #{task.limitDate}, #{task.statusCode}, #{task.remarks})
     </insert>
 
+    <!-- 条件検索 -->
+    <select id="selectListByConditions" resultMap="TaskSummaryResultMap"> 
+        SELECT 
+            tt.task_id,
+            task_name,
+            limit_date,
+            ms.status_code,
+            ms.status_name,
+            COUNT(tm.memo_id) as memo_count
+        FROM t_task tt 
+            INNER JOIN m_status ms 
+                ON tt.status_code = ms.status_code
+            LEFT OUTER JOIN t_memo tm 
+                ON tt.task_id = tm.task_id
+        <where>
+            <if test="task.taskName != null">
+                AND task_name LIKE #{task.taskName}
+            </if>
+            <if test="task.limitDate != null">
+                <!-- limit_dateが指定日より前 -->
+                <![CDATA[
+                    AND limit_date <= #{task.limitDate}
+                ]]>
+            </if>
+            <if test="task.statusCode != null">
+                AND tt.status_code = #{task.statusCode}
+            </if>
+        </where>
+        GROUP BY tt.task_id, task_name, limit_date,
+            ms.status_code, ms.status_name
+        ORDER BY tt.task_id 
+    </select>
 </mapper>

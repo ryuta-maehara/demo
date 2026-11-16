@@ -20,4 +20,12 @@ public interface TaskService {
    * @param task Task
    */
   void regist(Task task);
+
+  /**
+   * 条件検索
+   *
+   * @param task Task
+   * @return List<TaskSummary>
+   */
+  List<TaskSummary> findListByConditions(Task task);
 }

@@ -15,4 +15,7 @@ public interface TaskRepository {
 
   // タスク登録
   void insert(@Param("task") Task task);
+
+  // 条件検索
+  List<TaskSummary> selectListByConditions(@Param("task") Task task);
 }

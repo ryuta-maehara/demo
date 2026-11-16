@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.service.StatusService;
 import com.example.demo.service.TaskService;
+import com.example.demo.entity.Task;
 import com.example.demo.form.TaskSearchListForm;
-import com.example.demo.entity.TaskSummary;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,15 +32,21 @@ public class TaskSearchController {
   }
 
   @PostMapping("/task-search-list")
-  public String postMethodName(
+  public String searchList(
       @Validated @ModelAttribute TaskSearchListForm form,
       Model model) {
 
-    // form内容をsystem.outへ出力する。
-    System.out.println("---searchList---");
-    System.out.println(form);
+    Task task = new Task();
+    if (!form.getTaskName().isEmpty()) {
+      task.setTaskName("%" + form.getTaskName() + "%");
+    }
+    task.setLimitDate(form.getLimitDate()); // limitDateに指定が無い場合はnullが送られてくる。その場合はnullのまま。
+    
+    if (!form.getStatusCode().isEmpty()) {
+      task.setStatusCode(form.getStatusCode());
+    }
 
-    model.addAttribute("taskSummaryList", taskService.findListAll()); // 取得したタスク一覧をmodelにセットする。
+    model.addAttribute("taskSummaryList", taskService.findListByConditions(task)); // 取得したタスク一覧をmodelにセットする。
     model.addAttribute("statusList", statusService.findAll()); // 取得したステータス一覧をmodelにセットする。
 
     return "task-list";
